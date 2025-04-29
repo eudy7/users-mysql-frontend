@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Consumo de REST–API de Usuarios</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="callrestapi.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f6f7f9;
+      color: #222;
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #1a1a1a;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #eef3ff;
+    }
+
+    button {
+      margin-top: 20px;
+      margin-right: 10px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #postBtn {
+      background-color: #007bff;
+      color: white;
+    }
+
+    #getBtn {
+      background-color: #6c757d;
+      color: white;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 30px;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #eaeaea;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+
+    tr:hover {
+      background-color: #f1f9ff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Consumo de REST–API de Usuarios</h1>
+
+  <label for="name">Name</label>
+  <input type="text" id="name">
+
+  <label for="email">Email</label>
+  <input type="text" id="email">
+
+  <label for="age">Age</label>
+  <input type="number" id="age">
+
+  <label for="comments">Comments</label>
+  <input type="text" id="comments">
+
+  <button id="postBtn" onclick="postUser()">POST user</button>
+  <button id="getBtn" onclick="getUsers()">GET usuarios</button>
+
+  <div id="resultado"></div>
+
+</body>
+</html>
