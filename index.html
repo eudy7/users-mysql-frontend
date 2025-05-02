@@ -96,6 +96,10 @@
     #editModal input[type="email"],
     #editModal input[type="number"] {
       margin-bottom: 10px;
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
 
     #editModal button {
@@ -124,6 +128,7 @@
 
   <div id="resultado"></div>
 
+  <!-- Modal para editar usuario -->
   <div id="editModal">
     <h2>Editar Usuario</h2>
     <input type="hidden" id="edit-id">
@@ -144,6 +149,12 @@
     <button onclick="updateUser()">Guardar cambios</button>
     <button onclick="$('#editModal').hide()">Cancelar</button>
   </div>
+
+  <script>
+    $(document).ready(function () {
+      getUsers();
+    });
+  </script>
 
 </body>
 </html>
