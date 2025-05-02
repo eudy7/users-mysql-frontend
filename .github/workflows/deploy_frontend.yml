@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Node (opcional si no hay dependencias)
+      - name: Set up Node (opcional)
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -23,8 +23,13 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
 
-      - name: Build Docker image
+      - name: Build image with SHA tag
         run: docker build -t ${{ secrets.DOCKER_USER }}/users-mysql-frontend:${{ github.sha }} .
 
-      - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USER }}/users-mysql-frontend:${{ github.sha }}
+      - name: Tag image as latest
+        run: docker tag ${{ secrets.DOCKER_USER }}/users-mysql-frontend:${{ github.sha }} ${{ secrets.DOCKER_USER }}/users-mysql-frontend:latest
+
+      - name: Push both tags
+        run: |
+          docker push ${{ secrets.DOCKER_USER }}/users-mysql-frontend:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USER }}/users-mysql-frontend:latest
