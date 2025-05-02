@@ -26,7 +26,10 @@ function postUser() {
     data: JSON.stringify(myuser),
     success: function () {
       getUsers();
-      $('#userForm')[0].reset();
+      $('#name').val('');
+      $('#email').val('');
+      $('#age').val('');
+      $('#comments').val('');
     },
     error: function () {
       alert('Error al guardar usuario');
@@ -57,7 +60,7 @@ function getUsers() {
           <td>${item.age || '-'}</td>
           <td>${item.comments || '-'}</td>
           <td>
-            <button onclick="showEditModal(${item.id}, '${item.name}', '${item.email}', ${item.age}, \`${item.comments || ''}\`)">Editar</button>
+            <button onclick="showEditModal(${item.id}, '${item.name.replace(/'/g, "\\'")}', '${item.email}', ${item.age}, \`${item.comments || ''}\`)">Editar</button>
             <button onclick="deleteUser(${item.id})">Eliminar</button>
           </td>
         </tr>
@@ -118,3 +121,4 @@ function deleteUser(id) {
     });
   }
 }
+
