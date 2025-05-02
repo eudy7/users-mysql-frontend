@@ -77,6 +77,30 @@
     tr:hover {
       background-color: #f1f9ff;
     }
+
+    #editModal {
+      display: none;
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      z-index: 999;
+      width: 400px;
+    }
+
+    #editModal input[type="text"],
+    #editModal input[type="email"],
+    #editModal input[type="number"] {
+      margin-bottom: 10px;
+    }
+
+    #editModal button {
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -99,6 +123,27 @@
   <button id="getBtn" onclick="getUsers()">GET usuarios</button>
 
   <div id="resultado"></div>
+
+  <div id="editModal">
+    <h2>Editar Usuario</h2>
+    <input type="hidden" id="edit-id">
+
+    <label for="edit-name">Name</label>
+    <input type="text" id="edit-name">
+
+    <label for="edit-email">Email</label>
+    <input type="text" id="edit-email">
+
+    <label for="edit-age">Age</label>
+    <input type="number" id="edit-age">
+
+    <label for="edit-comments">Comments</label>
+    <input type="text" id="edit-comments">
+
+    <br>
+    <button onclick="updateUser()">Guardar cambios</button>
+    <button onclick="$('#editModal').hide()">Cancelar</button>
+  </div>
 
 </body>
 </html>

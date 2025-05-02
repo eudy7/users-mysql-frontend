@@ -7,7 +7,7 @@ function postUser() {
   var myComments = $('#comments').val().trim();
 
   if (!myName || !myEmail) {
-    alert('⚠️ Name and Email are required!');
+    alert('Name and Email are required!');
     return;
   }
 
@@ -26,9 +26,10 @@ function postUser() {
     data: JSON.stringify(myuser),
     success: function () {
       getUsers();
+      $('#userForm')[0].reset();
     },
     error: function () {
-      alert('❌ Error al guardar usuario');
+      alert('Error al guardar usuario');
     }
   });
 }
@@ -41,11 +42,7 @@ function getUsers() {
       <table border="1" style="border-collapse: collapse; width: 100%; margin-top: 1em;">
         <thead style="background-color: #f0f0f0;">
           <tr>
-            <th style="padding: 8px;">ID</th>
-            <th style="padding: 8px;">Name</th>
-            <th style="padding: 8px;">Email</th>
-            <th style="padding: 8px;">Age</th>
-            <th style="padding: 8px;">Comments</th>
+            <th>ID</th><th>Name</th><th>Email</th><th>Age</th><th>Comments</th><th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -54,11 +51,15 @@ function getUsers() {
     users.forEach(function (item) {
       htmlTableUsers += `
         <tr>
-          <td style="padding: 8px;">${item.id}</td>
-          <td style="padding: 8px;">${item.name || '-'}</td>
-          <td style="padding: 8px;">${item.email || '-'}</td>
-          <td style="padding: 8px;">${item.age || '-'}</td>
-          <td style="padding: 8px;">${item.comments || '-'}</td>
+          <td>${item.id}</td>
+          <td>${item.name || '-'}</td>
+          <td>${item.email || '-'}</td>
+          <td>${item.age || '-'}</td>
+          <td>${item.comments || '-'}</td>
+          <td>
+            <button onclick="showEditModal(${item.id}, '${item.name}', '${item.email}', ${item.age}, \`${item.comments || ''}\`)">Editar</button>
+            <button onclick="deleteUser(${item.id})">Eliminar</button>
+          </td>
         </tr>
       `;
     });
@@ -66,7 +67,31 @@ function getUsers() {
     htmlTableUsers += '</tbody></table>';
     $('#resultado').html(htmlTableUsers);
   }).fail(function () {
-    alert('❌ Error al obtener usuarios');
+    alert('Error al obtener usuarios');
   });
 }
-// trigger redeploy
+
+function showEditModal(id, name, email, age, comments) {
+  $('#edit-id').val(id);
+  $('#edit-name').val(name);
+  $('#edit-email').val(email);
+  $('#edit-age').val(age);
+  $('#edit-comments').val(comments);
+  $('#editModal').show();
+}
+
+function updateUser() {
+  const id = $('#edit-id').val();
+  const data = {
+    name: $('#edit-name').val().trim(),
+    email: $('#edit-email').val().trim(),
+    age: $('#edit-age').val().trim(),
+    comments: $('#edit-comments').val().trim()
+  };
+
+  $.ajax({
+    url: `${url}/${id}`,
+    type: 'PUT',
+    contentType: 'application/json',
+    data: JSON.stringify(data),
+    success: function ()
