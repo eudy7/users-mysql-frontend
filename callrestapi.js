@@ -94,4 +94,27 @@ function updateUser() {
     type: 'PUT',
     contentType: 'application/json',
     data: JSON.stringify(data),
-    success: function ()
+    success: function () {
+      $('#editModal').hide();
+      getUsers();
+    },
+    error: function () {
+      alert('Error al actualizar usuario');
+    }
+  });
+}
+
+function deleteUser(id) {
+  if (confirm('¿Seguro que deseas eliminar este usuario?')) {
+    $.ajax({
+      url: `${url}/${id}`,
+      type: 'DELETE',
+      success: function () {
+        getUsers();
+      },
+      error: function () {
+        alert('Error al eliminar usuario');
+      }
+    });
+  }
+}
